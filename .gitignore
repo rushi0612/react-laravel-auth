@@ -1,0 +1,14 @@
+# Laravel backend ignores
+laravel-react-api/vendor/
+laravel-react-api/node_modules/
+laravel-react-api/storage/
+laravel-react-api/.env
+
+# React frontend ignores
+react-breeze-api/node_modules/
+react-breeze-api/dist/
+react-breeze-api/.env
+
+# General
+.DS_Store
+Thumbs.db
