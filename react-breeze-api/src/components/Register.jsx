@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom"
 
 const Register = () => {
-  return (
+  return ( 
     <div>
       <div className="flex min-h-full flex-col justify-center align-content-center px-6 py-12 lg:px-8 mt-10 bg-gray-500 max-w-md mx-auto rounded-xl shadow-lg">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

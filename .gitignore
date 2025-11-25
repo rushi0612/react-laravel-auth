@@ -8,7 +8,7 @@ laravel-react-api/.env
 react-breeze-api/node_modules/
 react-breeze-api/dist/
 react-breeze-api/.env
-
+react-breeze-api/.vite
 # General
 .DS_Store
 Thumbs.db
