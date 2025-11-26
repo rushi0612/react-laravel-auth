@@ -1,16 +1,41 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import React, { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom"
+import axios from '../api/axios';
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const hanleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      await axios.get('/sanctum/csrf-cookie');
+      await axios.post('/login', { email, password });
+
+      setEmail("");
+      setPassword("");
+      navigate("/");
+
+    } catch (error) {
+      console.log("Login error:", error.response?.data);
+    }
+  }
+
   return (
     <div>
-        <div className="flex min-h-full flex-col justify-center align-content-center px-6 py-12 lg:px-8 mt-10 bg-gray-500 max-w-md mx-auto rounded-xl shadow-lg">
+      <div className="flex min-h-full flex-col justify-center align-content-center px-6 py-12 lg:px-8 mt-10 bg-gray-500 max-w-md mx-auto rounded-xl shadow-lg">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+            Sign in to your account
+          </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={hanleLogin} className="space-y-6">
+            
+            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-100">
                 Email address
@@ -20,32 +45,33 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white"
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-100">
                   Password
                 </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">
-                    Forgot password?
-                  </a>
-                </div>
               </div>
+
               <div className="mt-2">
                 <input
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={(e)=> setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                  className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white"
                 />
               </div>
             </div>
@@ -53,7 +79,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400"
               >
                 Sign in
               </button>
@@ -61,9 +87,9 @@ const Login = () => {
           </form>
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
-            Don't have Account?{' '}
+            Don't have an account?{' '}
             <Link to="/register" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              RegisterNow
+              Register Now
             </Link>
           </p>
         </div>
@@ -72,4 +98,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
